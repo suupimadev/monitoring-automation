@@ -6,7 +6,7 @@ ServiceNow への自動起票と、まとめ通知を行う運用フローの構
 ---
 
 ## 全体アーキテクチャ
-
+![全体アーキテクチャ](docs/architecture.png)
 ```
 flowchart LR
     ZB[監視ツール\n(Zabbixなど)] --> APG[API Gateway]
