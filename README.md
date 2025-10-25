@@ -5,10 +5,17 @@ ServiceNow への自動起票と、まとめ通知を行う運用フローの構
 
 ---
 
-## 🏗 全体アーキテクチャ
+## 全体アーキテクチャ
 
-監視ツール → API Gateway → Lambda（正規化） → Step Functions（フロー制御）
-→ DynamoDB（集約） → ServiceNow（起票） → SNS（通知）
+```
+flowchart LR
+    ZB[監視ツール\n(Zabbixなど)] --> APG[API Gateway]
+    APG --> LBD[Lambda\n(データ正規化)]
+    LBD --> SF[Step Functions\n(フロー制御)]
 
+    SF --> DDB[DynamoDB\n(イベント集約/状態管理)]
+    SF --> SNOW[ServiceNow\n(インシデント起票)]
+    SF --> SNS[(SNS)\n通知]
+```
 アラートはホスト単位、発生回復、Log、Trap単位で集約し、通知にはメッセージのみを一覧形式で含めます。
 
